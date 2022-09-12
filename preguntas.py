@@ -46,7 +46,7 @@ def pregunta_07():
 def pregunta_08():
     tbl01 = tbl0.copy()
     tbl01['suma'] = tbl01.sum(axis=1)
-    return tbl01.sort_values("suma")
+    return tbl01.reset_index(drop=True)
 
 
 def pregunta_09():
@@ -63,8 +63,7 @@ def pregunta_10():
     tbl03["_c2"] = tbl03["_c2"].apply(sorted)
     tbl03["_c2"] = tbl03["_c2"].apply(lambda x : ':'.join(x))
     tbl03=tbl03.sort_values("_c1")
-    tbl03=tbl03.rename(columns={ "_c1":"_c0","_c2":"_c1"})
-    return tbl03.reset_index()[["_c0", "_c1"]]
+    return tbl03.reset_index(drop=True)
 
 def pregunta_11():
     tbl04 = tbl1.copy()
