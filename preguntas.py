@@ -56,14 +56,19 @@ def pregunta_09():
 
 
 def pregunta_10():
-    tbl03 = tbl0.copy()
-    tbl03["_c2"]=tbl03["_c2"].apply(str)
-    tbl03['_c2'] = tbl03.groupby(['_c1'])['_c2'].transform(lambda x : ''.join(x))
-    tbl03 = tbl03[["_c1", "_c2"]].drop_duplicates()
-    tbl03["_c2"] = tbl03["_c2"].apply(sorted)
-    tbl03["_c2"] = tbl03["_c2"].apply(lambda x : ':'.join(x))
-    tbl03=tbl03.sort_values("_c1")
-    return tbl03.reset_index(drop=True)
+    valores = tbl0[['_c1', '_c2']].groupby(['_c1'])['_c2'].apply(list).tolist()
+    c2 = []
+
+    for letra in valores:
+        texto = ''
+        for valor in sorted(letra):
+            texto += f'{valor}:'
+        
+        c2.append(texto[:-1])
+
+    return pd.DataFrame({
+        '_c2': c2
+    }, index = pd.Series(['A', 'B', 'C', 'D', 'E'], name='_c1'))
 
 def pregunta_11():
     tbl04 = tbl1.copy()
